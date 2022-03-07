@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ZedChat</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/links.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    
+</head>
+
+<body>
+    <div class="main">
+        <nav>
+            <div class="left">
+                <a href="{{url_for('homepage')}}">
+                    <img src="{{url_for('static', filename='zedlogo.jpeg')}}" class="logo">
+                </a>
+                
+                <ul>
+                    <li><i class="fas fa-comment"></i></li>
+                    <li><i class="fas fa-bell"></i></li>
+                    <li><i class="fas fa-users"></i></li>
+                </ul></div>
+                
+            <div class="right">
+                <div class="searchbox">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="search">
+                </div>
+                <div class="usericon online">
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a href="{{url_for('logout')}}" class="button is-light">
+                                Logout 
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </nav>
+
+        {% block content %}
+
+        {% endblock %}
+
+</body>
+
+
+
+</html>

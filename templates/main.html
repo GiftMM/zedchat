@@ -1,0 +1,73 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="main-content">
+
+        <div class="story-gallary">
+            <div class="story">
+                <img src="">
+            </div>
+
+            <div class="write-post-container">
+                <div class="user-profile">
+                    <img src="{{url_for('static', filename='GiftM.jpg')}}" alt="Image">
+                
+                    <div>
+                        <p>Gift Mukeya</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post-input-container">
+                <textarea rows="3" placeholder="Your post"></textarea>
+
+                <div class="add-post-links">
+                    <a href="#"><img src="GiftM.jpg">Add Photos</a>
+                </div>
+            </div>
+        </div>
+
+        {% for post in posts.values() %}
+        <div class="post-container">
+            <div class="post-row">
+                <div class="user-profile">
+                    <img src="{{url_for('static', filename=post['Picture'])}}" alt="Image">
+                
+                    <div>
+                        <p>{{post['Name']}}</p>
+                    <span>{{post['DateTime']}}</span>
+                    </div>
+                </div>
+                <a href="#"><i class="fas fa-ellipsis-v"></i></a>
+            </div>
+            
+            <p class="post-text"> {{post['Text']}}</p>
+            <!--<img src="GiftM.jpg" class="post-img">-->
+
+            <div class="post-row">
+                <div class="activity-icons">
+                    <div>
+                        <i class="fas fa-heart"></i> 
+                        <span>{{post['Hearts'] | count }}</span>
+                    </div>
+                    <a class="level-item" aria-label="like"href="{{url_for('comments', post_id=post['PostId'])}}">
+                        <div>
+                        <i class="fas fa-comment-alt"></i>
+                        <span>{{post['Comments'] | count }}</span>
+                    </div>
+                </a>
+                    
+                    <div>
+                        <i class="fas fa-share-alt"></i> 5
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}
