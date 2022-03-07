@@ -2,14 +2,14 @@ from datetime import datetime
 
 Comment1 = {
             "Text": "We're never far apart",
-            "Name": "GiftMM",
+            "Name": "John",
             "DateTime": datetime(2022, 3, 2, 18, 0, 0),
             "Picture": "GiftM.jpg"
 }
 
 Comment2 = {
             "Text": "Hello",
-            "Name": "Gift",
+            "Name": "Jack",
             "DateTime": datetime(2022, 3, 2, 17, 0, 0),
             "Picture": "GiftM.jpg"
 }
@@ -17,8 +17,8 @@ Comment2 = {
 post1 = {
         "PostId": 1,
         "Text": "Hello world",
-        "Name": "Gift",
-        "Hearts": ["GiftMM"],
+        "Name": "Jack",
+        "Hearts": ["John"],
         "Comments": [Comment1, Comment2],
         "DateTime": datetime(2022, 3, 2, 15, 0, 0),
         "Picture": "GiftM.jpg"
@@ -27,7 +27,7 @@ post1 = {
 post2 = {
         "PostId": 2,
         "Text": "The sky is blue",
-        "Name": "GiftM",
+        "Name": "Smith",
         "Hearts": [],
         "Comments": [],
         "DateTime": datetime(2022, 3, 2, 15, 10, 0),
@@ -37,7 +37,7 @@ post2 = {
 post3 = {
         "PostId": 3,
         "Text": "We're never far apart",
-        "Name": "GiftMM",
+        "Name": "John",
         "Hearts": [],
         "Comments": [],
         "DateTime": datetime(2022, 3, 2, 15, 23, 0),
