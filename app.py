@@ -23,6 +23,13 @@ def homepage():
      
     return render_template('main.html', posts=test_posts, title = "My feed")
 
+@app.route("/chat")
+@auth.login_required
+def chatpage():
+     
+    return render_template('messages.html', posts=test_posts, title = "My feed")
+
+
 
 @app.route("/comments/<int:post_id>")
 @auth.login_required
