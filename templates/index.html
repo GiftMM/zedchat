@@ -16,9 +16,18 @@
                 </a>
                 
                 <ul>
-                    <a href="{{url_for('chatpage')}}"><li><i class="fas fa-comment"></i></li></a>
+                    <a href="{{url_for('chatpage')}}">
+                        <li>
+                            <i class="fas fa-comment"></i>
+                            <span>2</span>
+                        </li>
+
+                    </a>
                     <li><i class="fas fa-bell"></i></li>
-                    <li><i class="fas fa-users"></i></li>
+
+                    <a href="{{url_for('friendspage')}}">
+                         <li><i class="fas fa-users"></i></li>
+                    </a>
                 </ul></div>
                 
             <div class="right">

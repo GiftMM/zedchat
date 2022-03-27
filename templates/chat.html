@@ -13,14 +13,15 @@
         <nav class="message-nav">
 
         </nav>
-
+    {% for message in messages %}
         <div class="chat-box">
             <div class="col-1">
                 <div class="msg-row">
-                    <img src="GiftM.jpg" class="msg-img">
+                    <img src="{{url_for('static', filename=message['Picture'])}}" class="msg-img">
                     <div class="msg-text">
-                        <h2>Jack</h2>
-                        <p>Hello....</p>
+                        <h2>{{message['Name']}}</h2>
+                        <p>{{message['Text']}}</p>
+                        <span>{{message['DateTime']}}</span>
                     </div>
                     
                 </div>
@@ -29,13 +30,14 @@
                         <h2>Mark</h2>
                         <p>Hi Jack</p>
                     </div>
-                    <img src="GiftM.jpg" class="msg-img">
+                    <img src="{{url_for('static', filename=message['Picture'])}}" class="msg-img">
                 </div>
                 <div class="msg-row">
-                    <img src="GiftM.jpg" class="msg-img">
+                    <img src="{{url_for('static', filename=message['Picture'])}}" class="msg-img">
                     <div class="msg-text">
-                        <h2>Jack</h2>
-                        <p>How are you..</p>
+                        <h2>{{message['Name']}}</h2>
+                        <p>{{message['Text']}}</p>
+                        <span>{{message['DateTime']}}</span>
                     </div>   
                 </div>
                 <input type="text" placeholder="Your message.....">
@@ -51,6 +53,7 @@
                 </ul>
             </div>-->
         </div>
+    {% endfor %}
     </div>
 </body>
 </html>

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, abort, request
-from data import test_posts, post1
+from data import test_posts, post1, Message1, Message2, test_messages
 from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -27,9 +27,14 @@ def homepage():
 @auth.login_required
 def chatpage():
      
-    return render_template('messages.html', posts=test_posts, title = "My feed")
+    return render_template('chat.html', messages = test_messages, title = "Messages")
 
 
+@app.route("/Friends")
+@auth.login_required
+def friendspage():
+     
+    return render_template('friends.html', messages = test_messages, title = "Messages")
 
 @app.route("/comments/<int:post_id>")
 @auth.login_required

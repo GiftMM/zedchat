@@ -42,6 +42,7 @@ post3 = {
         "Comments": [],
         "DateTime": datetime(2022, 3, 2, 15, 23, 0),
         "Picture": "GiftM.jpg"
+        
     }
 
 test_posts = {
@@ -49,3 +50,21 @@ test_posts = {
     2 : post2,
     3 : post3
 }
+
+
+Message1 = {
+    "Text": "Hello Friend",
+    "Name": "Jack",
+    "DateTime": datetime(2022, 5, 3, 19, 0, 0),
+    "Picture": "GiftM.jpg",
+    "Messages":[]
+}
+
+Message2 = {
+    "Text": "How are you?",
+    "Name": "Jack",
+    "DateTime": datetime(2022, 5, 3, 20, 0, 0),
+    "Picture": "GiftM.jpg"
+}
+
+test_messages = [Message1]

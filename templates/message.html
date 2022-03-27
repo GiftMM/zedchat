@@ -1,0 +1,39 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/links.css') }}">
+    <title>Messages</title>
+</head>
+<body>
+    {% for message in message %}
+    <div class="container-message">  
+        <div class="chat-box">
+            <div class="col-2">
+                <h2>Messages</h2>
+                <ul>
+                    <li class="online"><h3>{{message['Name']}}</h3>
+                        <p>{{message['Text']}}</p>
+                        <span>{{message['DateTime']}}</span>
+                    </li>
+                    <li class="offline"><h3>Evelyn</h3>
+                        <p>Hello....</p>
+                        <span>10minutes ago</span>
+                    </li>
+                    <li class="online"><h3>Stones</h3>
+                        <p>Hello....</p>
+                        <span>10minutes ago</span>
+                    </li>
+                    <li class="offline"><h3>Johnson</h3>
+                        <p>Hello....</p>
+                        <span>10minutes ago</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div> 
+    {% endfor %} 
+</body>
+</html>-->

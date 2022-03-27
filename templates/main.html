@@ -56,12 +56,12 @@
                         <i class="fas fa-heart"></i> 
                         <span>{{post['Hearts'] | count }}</span>
                     </div>
-                    <a class="level-item" aria-label="like"href="{{url_for('comments', post_id=post['PostId'])}}">
+                    <a class="level-item" aria-label="like" href="{{url_for('comments', post_id=post['PostId'])}}">
                         <div>
-                        <i class="fas fa-comment-alt"></i>
-                        <span>{{post['Comments'] | count }}</span>
-                    </div>
-                </a>
+                            <i class="fas fa-comment-alt"></i>
+                            <span>{{post['Comments'] | count }}</span>
+                        </div>
+                    </a>
                     
                     <div>
                         <i class="fas fa-share-alt"></i> 5
