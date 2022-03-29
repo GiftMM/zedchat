@@ -16,7 +16,7 @@ Comment2 = {
 
 post1 = {
         "PostId": 1,
-        "Text": "Hello world",
+        "Text": "What a day",
         "Name": "Jack",
         "Hearts": ["John"],
         "Comments": [Comment1, Comment2],
@@ -53,7 +53,7 @@ test_posts = {
 
 
 Message1 = {
-    "Text": "Hello Friend",
+    "Text": "Hello",
     "Name": "Jack",
     "DateTime": datetime(2022, 5, 3, 19, 0, 0),
     "Picture": "GiftM.jpg",

@@ -15,9 +15,8 @@ body{
     min-height: 1000px;
     margin-right: auto;
     margin-left: auto;
-    background-color: #ffff;
+    background-color: #638268;
     border: 2px solid #0ea327;
-    
 }
 nav{
     display: flex;
@@ -249,7 +248,7 @@ nav{
 
 .write-post-container{
     width: 100%;
-    background: #fff;
+    background: #638268;
     border-radius: 6px;
     padding: 20px;
     columns: #626262;
@@ -260,10 +259,17 @@ nav{
     align-items: center;
 }
 
+.user-profile-img{
+    width: 28px!important;
+    border-radius: 50%;
+    margin-right: 1px;
+
+}
+
 .user-profile img{
     width: 45px;
     border-radius: 50%;
-    margin-right: 10px;
+    margin-right: 1px;
 
 }
 
@@ -278,15 +284,15 @@ nav{
 }
 
 .post-input-container{
-    padding-left: 55px;
+    padding-left: 15px;
     padding-top: 20px;
 }
 
 .post-input-container textarea{
-    width: 100%;
+    width: 800px;
     outline: 0;
-    border-bottom: 1px solid #ccc;
-    background: transparent;
+    border-bottom: 1px solid rgba(56, 60, 56, 0.953);
+    background: #98b89d;
     resize: none;
 }
 
@@ -315,10 +321,9 @@ nav{
 
 .post-container{
     width: 100%;
-    background: #e7e6e6;
+    background: #98b89d;
     border-radius: 6px;
     padding: 20px;
-    color: #626262;
     margin: 20px 0;
 }
 
@@ -329,7 +334,7 @@ nav{
 
 .post-text{
     color: #000000;
-    margin: 15px;
+    margin: 20px;
     font-size: 15px;
 }
 
@@ -418,7 +423,7 @@ nav{
 
 .chat-box{
     position: relative;
-    background-color: #626262;
+    background-color: #638268;
     width: 100%;
     min-height: 100%;
     min-width: 250px;
@@ -444,7 +449,7 @@ nav{
   }
 
 .msg-text{
-    background: rgba(255,255,255,0.1);
+    background: #98b89d;
     padding: 20px 40px;
     border-radius: 8px;
     flex-basis: 70%;
@@ -469,7 +474,7 @@ nav{
 
 .col-1 input{
     padding: 20px 40px;
-    background: #626262;
+    background: #98b89d;
     color: rgb(73, 55, 55);
     width: 100%;
     font-size: 16px;

@@ -5,33 +5,32 @@
 <div class="container">
     <div class="main-content">
 
-        <div class="story-gallary">
+       <!-- <div class="story-gallary">
             <div class="story">
                 <img src="">
-            </div>
+            </div>-->
 
             <div class="write-post-container">
                 <div class="user-profile">
-                    <img src="{{url_for('static', filename='GiftM.jpg')}}" alt="Image">
-                
-                    <div>
-                        <p>Gift</p>
-                    </div>
-                </div>
-            </div>
-            <form action="/create" method="POST">
-                <div class="post-input-container">
-                    <textarea rows="3" placeholder="Your post" name="post-content"></textarea>
+                    <img src="{{url_for('static', filename='GiftM.jpg')}}" alt="Image" class="user-profile-img">
+                 <form action="/create" method="POST">
+                    <div class="post-input-container">
+                        <textarea rows="3" placeholder="Your post" name="post-content"></textarea>
                     
                         <div class="level-left">
-                        <div class="level-item">
-                            <!--<a class="button is-info">Post</a>-->
-                            <button class="button is-link">Post</button>
+                            <div class="level-item">
+                                <!--<a class="button is-info">Post</a>-->
+                                <button class="button is-link">Post</button>
+                            </div>
                         </div>
-                        </div>
+                    </div>
+                 </form>
+                    
                 </div>
-            </form>
-        </div>
+                
+            </div>
+           
+       <!--</div>-->
 
         {% for post in posts.values() %}
         <div class="post-container">
