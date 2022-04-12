@@ -1,51 +1,95 @@
-from flask import Flask, render_template, abort, request
+from flask import Flask, render_template, request,session, redirect, url_for,flash
 from data import test_posts, post1, Message1, Message2, test_messages
-from flask_httpauth import HTTPBasicAuth
-from werkzeug.security import generate_password_hash, check_password_hash
+import sqlite3
 
 app = Flask(__name__)
-auth = HTTPBasicAuth()
-
-users = {
-    "GiftM": generate_password_hash("gift"),
-}
-
-@auth.verify_password
-def verify_password(username, password):
-    if username in users and \
-            check_password_hash(users.get(username), password):
-        return username
-
+app.secret_key="12345"
 
 @app.route("/")
-@auth.login_required
+def index():
+     
+    return render_template('login.html')
+
+
+@app.route('/login',methods=["GET","POST"])
+def login():
+    if request.method=='POST':
+        name=request.form['name']
+        password=request.form['password']
+        con=sqlite3.connect("zeddata.db")
+        con.row_factory=sqlite3.Row
+        cur=con.cursor()
+        cur.execute("select * from Users where name=? and password=?",(name,password))
+        data=cur.fetchone()
+
+        if data:
+            session["name"]=data["name"]
+            session["password"]=data["password"]
+            return redirect("homepage")
+        else:
+            flash("Username and Password Mismatch","danger")
+    return redirect(url_for("index"))
+
+
+@app.route('/register',methods=['GET','POST'])
+def register():
+    if request.method=='POST':
+        try:
+            Name=request.form['Name']
+            Email=request.form['Email']
+            password=request.form['password']
+            con=sqlite3.connect("zeddata.db")
+            cur=con.cursor()
+            cur.execute("insert into Users(Name,Email,password)values(?,?,?)",(Name,Email,password))
+            con.commit()
+            flash("Record Added  Successfully","success")
+        except:
+            flash("Error in Insert Operation","danger")
+        finally:
+            return redirect(url_for("homepage"))
+            con.close()
+
+    return render_template('register.html')
+
+
+@app.route("/homepage")
 def homepage():
      
     return render_template('main.html', posts=test_posts, title = "My feed")
 
 @app.route("/chat")
-@auth.login_required
 def chatpage():
      
     return render_template('chat.html', messages = test_messages, title = "Messages")
 
 
+
+
 @app.route("/Friends")
-@auth.login_required
 def friendspage():
      
     return render_template('friends.html', messages = test_messages, title = "Messages")
 
 @app.route("/comments/<int:post_id>")
-@auth.login_required
 def comments(post_id):
     post = test_posts[post_id]
-    return render_template('comments.html', title="Comments", post = post, user=auth.current_user())
+    return render_template('comments.html', title="Comments", post = post)
 
 @app.route("/create", methods=['POST'])
 def create():
     return 'post content was: ' + request.form['post-content']
 
-@app.route("/logout")
+
+@app.route('/logout')
 def logout():
-    return abort(401)
+    session.clear()
+    return redirect(url_for("index"))
+
+
+#@app.route("/user/<string:handle>")
+#def user(handle):
+#    user = get_user_by_handle(handle)
+#    return render_template('users.html', user=user, #posts=get_posts_by_handle(handle), user=auth.#current_user())
+
+if __name__ == "__main__":
+   app.run(debug=True)

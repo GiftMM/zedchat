@@ -1,3 +1,4 @@
+from collections import UserString
 from datetime import datetime
 
 Comment1 = {
@@ -68,3 +69,13 @@ Message2 = {
 }
 
 test_messages = [Message1]
+
+#------------------------
+#def get_user_by_handle(handle):
+#    for user in users
+#        if user['handle'] == handle:
+#            return user
+#    return None
+
+#------------------------------
+

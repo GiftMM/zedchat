@@ -79,6 +79,17 @@ nav{
     border-color: transparent;
     color: rgba(0,0,0,.7);
 }
+.button-post{
+    background-color: #0ea327;
+    cursor: pointer;
+    justify-content: center;
+    border-radius: 4px;
+    padding-bottom: calc(0.5em - 1px);
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: calc(0.5em - 1px);
+}
+
 .button {
     background-color: #fff;
     border-color: #dbdbdb;
@@ -294,6 +305,8 @@ nav{
     border-bottom: 1px solid rgba(56, 60, 56, 0.953);
     background: #98b89d;
     resize: none;
+    border-radius: 4px;
+    padding: 5px 10px;
 }
 
 .is-info{
@@ -481,6 +494,7 @@ nav{
     font-weight: 300;
     position: absolute;
     bottom: 5px;
+    
 }
 
 ::placeholder{
