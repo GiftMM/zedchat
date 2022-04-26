@@ -40,7 +40,7 @@ def register():
             password=request.form['password']
             con=sqlite3.connect("zeddata.db")
             cur=con.cursor()
-            cur.execute("insert into Users(Name,Email,password)values(?,?,?)",(Name,Email,password))
+            cur.execute("INSERT INTO Users(Name,Email,password) VALUES (?,?,?)",(Name,Email,password))
             con.commit()
             flash("Record Added  Successfully","success")
         except:
@@ -85,11 +85,6 @@ def logout():
     session.clear()
     return redirect(url_for("index"))
 
-
-#@app.route("/user/<string:handle>")
-#def user(handle):
-#    user = get_user_by_handle(handle)
-#    return render_template('users.html', user=user, #posts=get_posts_by_handle(handle), user=auth.#current_user())
 
 if __name__ == "__main__":
    app.run(debug=True)
