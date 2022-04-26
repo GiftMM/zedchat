@@ -38,14 +38,14 @@
                     <img src="{{url_for('static', filename=post['Picture'])}}" alt="Image">
                 
                     <div>
-                        <p>{{ post['title'] }}</p>
-                    <span>{{ post['created'] }}</span>
+                        <p><h3>{{ post['Name'] }}</h3></p>
+                    <span>{{ post['DateTime'] }}</span>
                     </div>
                 </div>
                 <a href="#"><i class="fas fa-ellipsis-v"></i></a>
             </div>
             
-            <p class="post-text">{{ post['content'] }}</p>
+            <p class="post-text">{{ post['Text'] }}</p>
             <!--<img src="GiftM.jpg" class="post-img">-->
 
         </div>

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/links.css') }}">
     <title>Chat</title>
 </head>
@@ -13,8 +15,16 @@
         <nav class="message-nav">
 
         </nav>
+
+    
+
     {% for message in messages %}
         <div class="chat-box">
+        
+            <div class="back">
+                <a href="{{url_for('homepage')}}"><i class="fas fa-arrow-alt-circle-left"></i></a>
+            </div>
+            
             <div class="col-1">
                 <div class="msg-row">
                     <img src="{{url_for('static', filename=message['Picture'])}}" class="msg-img">
@@ -40,7 +50,20 @@
                         <span>{{message['DateTime']}}</span>
                     </div>   
                 </div>
-                <input type="text" placeholder="Your message.....">
+                <div class="user-profile">
+                    <form action="/create" method="POST">
+                        <div class="post-input-container">
+                            <textarea rows="3" placeholder="Your message" name="post-content"></textarea>
+                        
+                            <div class="level-left">
+                                <div class="level-item">
+                                    <button class="button-post">Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
             </div>
             <!--<div class="col-2">
                 <h3>Friend List</h3>

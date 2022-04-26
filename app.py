@@ -19,7 +19,7 @@ def login():
         con=sqlite3.connect("zeddata.db")
         con.row_factory=sqlite3.Row
         cur=con.cursor()
-        cur.execute("select * from Users where name=? and password=?",(name,password))
+        cur.execute("SELECT * FROM Users WHERE name=? AND password=?",(name,password))
         data=cur.fetchone()
 
         if data:
