@@ -9,21 +9,19 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/links.css') }}">
     <title>Chat</title>
 </head>
-<body>
+<body>        
+    
+    {% extends 'index.html' %}
+
+    {% block content %} 
     <div class="container-message">
         
-        <nav class="message-nav">
 
-        </nav>
 
     
 
     {% for message in messages %}
         <div class="chat-box">
-        
-            <div class="back">
-                <a href="{{url_for('homepage')}}"><i class="fas fa-arrow-alt-circle-left"></i></a>
-            </div>
             
             <div class="col-1">
                 <div class="msg-row">
@@ -78,5 +76,7 @@
         </div>
     {% endfor %}
     </div>
+
+    {% endblock %}
 </body>
 </html>

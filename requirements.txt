@@ -1,0 +1,7 @@
+Flask
+pyodbc
+flask-httpauth
+flask-login
+flask-wtf
+azure-storage-blob
+sendgrid

@@ -31,12 +31,12 @@
            
        <!--</div>-->
 
-        {% for post in posts.values() %}
+        {% for post in posts %}
         <div class="post-container">
             <div class="post-row">
                 <div class="user-profile">
-                    <img src="{{url_for('static', filename=post['Picture'])}}" alt="Image">
-                
+                    <img src="{{url_for('static', filename='GiftM.jpg')}}" alt="Image">
+                    
                     <div>
                         <p><h3>{{ post['Name'] }}</h3></p>
                     <span>{{ post['DateTime'] }}</span>
@@ -46,7 +46,7 @@
             </div>
             
             <p class="post-text">{{ post['Text'] }}</p>
-            <!--<img src="GiftM.jpg" class="post-img">-->
+            <!--<img src="https://cdn.britannica.com/29/150929-050-547070A1/lion-Kenya-Masai-Mara-National-Reserve.jpg" class="post-img">-->
 
         </div>
         {% endfor %}

@@ -1,5 +1,5 @@
 import flask
-from flask import Flask, render_template, request, redirect, url_for,flash, session
+from flask import Flask, render_template, request, redirect, url_for,flash, send_from_directory
 from builtins import classmethod, len, print
 from data import test_posts, post1, Message1, Message2, test_messages
 import sqlite3
@@ -9,6 +9,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, IntegerField,TextAreaField 
 from urllib.parse import urlparse, urljoin
 import database
+import os
 
 app = Flask(__name__)
 
@@ -69,52 +70,57 @@ def index():
 
 @app.route('/login',methods=["GET","POST"])
 def login():
-    if request.method=='POST':
-        name=request.form['name']
-        password=request.form['password']
-        user = db.get_user_data(name)[0]
-
-        if user and check_password_hash(user['password'], password):
+    form = LoginForm()
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
+        user = db.get_user_data(username)[0] 
+        if user and  check_password_hash(user['password'], password):
             user = User(user['Id'])
-
             login_user(user)
+        flask.flash('Logged in successfully.')
+        flask.flash("Username and Password Mismatch","danger")
+        next = flask.request.args.get('next')
+        if not is_safe_url(next):
+            return flask.abort(400)
 
-            return redirect("homepage")
-        else:
-            flash("Username and Password Mismatch","danger")
-    return redirect(url_for("index"))
+        return flask.redirect(next or flask.url_for('homepage'))
+    return flask.render_template('login.html', form=form)
 
 
 @app.route('/register',methods=['GET','POST'])
 def register():
-    if request.method=='POST':
-        try:
-            Name=request.form['Name']
-            Email=request.form['Email']
-            password=generate_password_hash(request.form['password'])
+    form = signUpForm()
+    if form.validate_on_submit():
+        password_hash = generate_password_hash(form.password.data)
+        name = form.name.data
+        email = form.email.data
 
-            db.insert_new_user(Name,Email,password)
-            user_id = db.get_id_by_name(Name)[0]
-            user = User(user_id['Id'])
+        db.create_user(name, email, password_hash)
+        user_id = db.get_id_by_name(name)[0]
+        user = User(user_id['Id'])
+ 
+        login_user(user)
 
-            login_user(user)
-            flash("Record Added  Successfully","success")
-        except:
-            flash("Error in Insert Operation","danger")
-        finally:
-            return redirect(url_for("homepage"))
-            con.close()
+        flask.flash('Logged in successfully.')
 
-    return render_template('register.html')  
+        next = flask.request.args.get('next')
+        if not is_safe_url(next):
+            return flask.abort(400)
+        return flask.redirect(next or flask.url_for('homepage'))
+    
+    return render_template('register.html', form=form)
 
 
 @app.route("/homepage")
 @login_required
 def homepage():
-    posts = db.get_all_posts(current_user.id)
-    user = db.get_user_by_Id(current_user.id)[0]['Name']
-    if (posts ==None):
+
+    posts = db.get_all_posts_by_id(current_user.id)
+    user = db.get_user_by_Id(current_user.id)[0]
+    if (posts == None):
         posts = []
+     
     return render_template('main.html', posts=posts, Id=current_user, user=user, title = "My feed")
 
 @app.route("/chat")
@@ -122,6 +128,8 @@ def homepage():
 def chatpage():
      
     return render_template('chat.html', messages = test_messages, title = "Messages")
+
+
 
 
 @app.route("/Friends")

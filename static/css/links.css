@@ -15,7 +15,7 @@ body{
     min-height: 1000px;
     margin-right: auto;
     margin-left: auto;
-    background-color: #638268;
+    background-color: #bccebf;
     border: 2px solid #0ea327;
 }
 nav{
@@ -108,11 +108,10 @@ nav{
     display: inline-flex;
 }
 
-.usericon img{
+.usericon a img{
     width: 40px;
     border-radius: 50%;
     cursor: pointer;
-
 }
 
 .usericon{
@@ -259,7 +258,7 @@ nav{
 
 .write-post-container{
     width: 100%;
-    background: #638268;
+    background-color: #bccebf;
     border-radius: 6px;
     padding: 20px;
     columns: #626262;
@@ -419,7 +418,6 @@ nav{
     margin-right: auto;
     margin-left: auto;
     background-color: #ffff;
-    border: 2px solid #0ea327;
 
 }
 .message-nav{
@@ -436,7 +434,7 @@ nav{
 
 .chat-box{
     position: relative;
-    background-color: #638268;
+    background-color: #bccebf;
     width: 100%;
     min-height: 100%;
     min-width: 250px;
