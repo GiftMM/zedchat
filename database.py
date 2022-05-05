@@ -4,7 +4,7 @@ class Database:
 
     def __init__(self, db_file='zedchat.db'):
         self.filename = db_file
-        Users_table_query = 'CREATE TABLE IF NOT EXISTS "Users" ("Id" INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, "Name"	TEXT, "Bio"	TEXT, "Email" TEXT, "password" TEXT);'
+        Users_table_query = 'CREATE TABLE IF NOT EXISTS "Users" ("Id" INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, "Name"	TEXT, "Bio"	TEXT, "Email" TEXT UNIQUE, "password" TEXT);'
         
         Posts_table_query = 'CREATE TABLE IF NOT EXISTS "Posts" ("Id" INTEGER PRIMARY KEY AUTOINCREMENT, "UserId"	INTEGER, "Text"	TEXT, "DateTime"	TIMESTAMP DEFAULT CURRENT_TIMESTAMP);'
 
@@ -60,11 +60,11 @@ class Database:
         self.execute_void_query(query, Name, Email, password)
 
     def insert_post(self, id, post_content):
-        self.execute_void_query("INSERT INTO Posts (Text,Id) VALUES (?,?)", post_content, id)
+        self.execute_void_query("INSERT INTO Posts (Text,UserId) VALUES (?,?)", post_content, id)
 
 
     def get_all_posts(self,user):
-        return self.execute_return_query("SELECT * FROM Posts Inner JOIN Users ON Posts.Id = Users.Id WHERE Users.Id = ?;", user)
+        return self.execute_return_query("SELECT * FROM Posts Inner JOIN Users ON Posts.UserId = Users.Id WHERE Users.Id = ?;", user)
         
 
 

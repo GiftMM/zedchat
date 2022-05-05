@@ -113,7 +113,7 @@ def register():
 def homepage():
     posts = db.get_all_posts(current_user.id)
     user = db.get_user_by_Id(current_user.id)[0]['Name']
-    if (posts ==None):
+    if (posts == None):
         posts = []
     return render_template('main.html', posts=posts, Id=current_user, user=user, title = "My feed")
 
