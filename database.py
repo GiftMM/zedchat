@@ -12,7 +12,7 @@ class Database:
         
         Counts_table_query = 'CREATE TABLE IF NOT EXISTS "Counts" ("Id"	TEXT, "Likescount"	TEXT);'
 
-        messages_table_query = 'CREATE TABLE IF NOT EXISTS "Messages" ("Id" INTEGER PRIMARY KEY AUTOINCREMENT, "UserId"	INTEGER, "Text"	TEXT, "DateTime" TIMESTAMP DEFAULT CURRENT_TIMESTAMP);'
+        messages_table_query = 'CREATE TABLE IF NOT EXISTS "Messages" ("MessageId" INTEGER PRIMARY KEY AUTOINCREMENT, "UserId1"	INTEGER, "UserId2"	INTEGER, "Text"	TEXT, "DateTime" TIMESTAMP DEFAULT CURRENT_TIMESTAMP);'
 
         self.execute_void_query(Users_table_query)
         self.execute_void_query(Posts_table_query)
@@ -44,8 +44,10 @@ class Database:
         conn.close()
       return dicts
 
-    
     def get_user_data(self, user):
+        return self.execute_return_query("SELECT * FROM Users WHERE Name=?", user)
+    
+    def get_user(self, user):
         return self.execute_return_query("SELECT * FROM Users WHERE Name=?", user)
 
     def get_user_by_Id(self,Id):
@@ -96,9 +98,13 @@ class Database:
         
 
 
-    def insert_message(self, id, post_content):
-        self.execute_void_query("INSERT INTO Messages (Text, Id) VALUES (?, ?)", post_content, id)
+    def insert_message(self, id, message_content):
+        self.execute_void_query("INSERT INTO Messages (Text, UserId1) VALUES (?, ?)", message_content, id)
 
 
     def get_all_messages(self,user ):
-        return self.execute_return_query("SELECT * FROM Messages Inner JOIN Users ON Posts.Id = Users.Id WHERE Users.Id = ?;", user)
+        return self.execute_return_query("SELECT * FROM Messages WHERE MessageId = ?;", user)
+
+
+    def get_all_users(self,user ):
+        return self.execute_return_query("SELECT * FROM Users WHERE Id = ?;", user)

@@ -117,18 +117,26 @@ def homepage():
         posts = []
     return render_template('main.html', posts=posts, Id=current_user, user=user, title = "My feed")
 
+
+@app.route("/createmessage", methods=['POST'])  
+def createmessage():
+    message_content = request.form['message-content']
+    db.insert_message(current_user.id, message_content)
+    return redirect(url_for('chatpage'))
+
 @app.route("/chat")
 @login_required
 def chatpage():
-     
+    #messages = db.get_all_messages(current_user.id)
     return render_template('chat.html', messages = test_messages, title = "Messages")
 
 
 @app.route("/Friends")
 @login_required
 def friendspage():
-     
-    return render_template('friends.html', messages = test_messages, title = "Messages")
+    
+    user = db.get_all_users(current_user.id)[0]['Name']
+    return render_template('friends.html', user=user, title = "Friends")
 
 @app.route("/comments/<int:post_id>")
 def comments(post_id):
@@ -140,6 +148,17 @@ def create():
     post_content = request.form['post-content']
     db.insert_post(current_user.id, post_content) 
     return redirect(url_for('homepage'))
+
+
+@app.route("/users/<string:user>", methods=['GET', 'POST'])
+def profile(user):
+    user_infor = db.get_user(user)
+    if (len(user_infor) > 0):
+        User = user_infor[0] 
+        posts = db.get_all_posts(current_user.id)
+        if (posts == None):
+            posts = []
+        return render_template('profile.html', title=User['Name'], User=User, posts=posts, user=current_user )
 
 
 @app.route("/logout")

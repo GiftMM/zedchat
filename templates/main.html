@@ -37,16 +37,21 @@
                 <div class="user-profile">
                     <img src="{{url_for('static', filename='GiftM.jpg')}}" alt="Image">
                     
-                    <div>
-                        <p><h3>{{ post['Name'] }}</h3></p>
+                    <div class="pl-2">
+                        <h5 class="mt-0 font-weight-bold">{{ post['Name'] }}</h5>
                     <span>{{ post['DateTime'] }}</span>
                     </div>
                 </div>
                 <a href="#"><i class="fas fa-ellipsis-v"></i></a>
             </div>
             
-            <p class="post-text">{{ post['Text'] }}</p>
+            <div class="ml-4">
+                <p class="post-text">
+                {{ post['Text'] }}
+            </p>
             <!--<img src="https://cdn.britannica.com/29/150929-050-547070A1/lion-Kenya-Masai-Mara-National-Reserve.jpg" class="post-img">-->
+
+        </div>
 
         </div>
         {% endfor %}

@@ -19,14 +19,7 @@ body{
     border: 2px solid #0ea327;
 }
 nav{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     background: #0ea327;
-    padding: 5px 5%;
-    position: sticky;
-    top: 0;
-    z-index: 100;
 }
 
 .left a .logo{
