@@ -65,8 +65,8 @@ class Database:
         self.execute_void_query("INSERT INTO Posts (Text,UserId) VALUES (?,?)", post_content, id)
 
 
-    def get_all_posts(self,user):
-        return self.execute_return_query("SELECT * FROM Posts Inner JOIN Users ON Posts.UserId = Users.Id WHERE Users.Id = ?;", user)
+    def get_all_posts(self):
+        return self.execute_return_query("SELECT * FROM Posts Inner JOIN Users ON Posts.UserId = Users.Id;")
         
 
 
@@ -106,5 +106,11 @@ class Database:
         return self.execute_return_query("SELECT * FROM Messages WHERE MessageId = ?;", user)
 
 
-    def get_all_users(self,user ):
-        return self.execute_return_query("SELECT * FROM Users WHERE Id = ?;", user)
+    def search_results(self, search):
+        return self.execute_return_query("SELECT * FROM Users WHERE Name LIKE '?%';", search)
+
+
+
+
+    def get_all_users_alphabetically(self):
+        return self.execute_return_query("SELECT * FROM Users ORDER BY Name DESC;")

@@ -19,7 +19,7 @@
                     
                         <div class="level-left">
                             <div class="level-item">
-                                <button class="button-post">Post</button>
+                                <button class="button-post float-left">Post</button>
                             </div>
                         </div>
                     </div>
@@ -42,7 +42,16 @@
                     <span>{{ post['DateTime'] }}</span>
                     </div>
                 </div>
-                <a href="#"><i class="fas fa-ellipsis-v"></i></a>
+                <div class="btn-group dropleft">
+                    <button type="button" class="btn">More</button>
+                    <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Edit</a>
+                      <a class="dropdown-item btn-danger" href="#">Delete</a>
+                    </div>
+                  </div>
             </div>
             
             <div class="ml-4">
@@ -50,7 +59,7 @@
                 {{ post['Text'] }}
             </p>
             <!--<img src="https://cdn.britannica.com/29/150929-050-547070A1/lion-Kenya-Masai-Mara-National-Reserve.jpg" class="post-img">-->
-
+            
         </div>
 
         </div>

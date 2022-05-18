@@ -67,6 +67,7 @@ def index():
     return render_template('login.html')
 
 
+
 @app.route('/login',methods=["GET","POST"])
 def login():
     if request.method=='POST':
@@ -111,7 +112,7 @@ def register():
 @app.route("/homepage")
 @login_required
 def homepage():
-    posts = db.get_all_posts(current_user.id)
+    posts = db.get_all_posts()
     user = db.get_user_by_Id(current_user.id)[0]['Name']
     if (posts == None):
         posts = []
@@ -134,14 +135,13 @@ def chatpage():
 @app.route("/Friends")
 @login_required
 def friendspage():
-    
-    user = db.get_all_users(current_user.id)[0]['Name']
-    return render_template('friends.html', user=user, title = "Friends")
+    all_users = db.get_all_users_alphabetically()
+    return render_template('friends.html', title = "Friends", all_users= all_users)
 
-@app.route("/comments/<int:post_id>")
-def comments(post_id):
-    post = test_posts[post_id]
-    return render_template('comments.html', title="Comments", post = post)
+#@app.route("/comments/<int:post_id>")
+#def comments():
+#    post = db.get_all_comments
+#    return render_template('comments.html', title="Comments", post = post)
 
 @app.route("/create", methods=['POST'])  
 def create():
@@ -159,6 +159,15 @@ def profile(user):
         if (posts == None):
             posts = []
         return render_template('profile.html', title=User['Name'], User=User, posts=posts, user=current_user )
+
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    if request.method=='POST':
+        search = request.form.get('search')
+        results = db.search_results('search')
+        return render_template('search.html', results=results, search=search)
+    return render_template('search.html')
 
 
 @app.route("/logout")
