@@ -106,8 +106,8 @@ class Database:
         return self.execute_return_query("SELECT * FROM Messages WHERE MessageId = ?;", user)
 
 
-    def search_results(self, search):
-        return self.execute_return_query("SELECT * FROM Users WHERE Name LIKE '?%';", search)
+    def search_results(self, search_results):
+        return self.execute_return_query("SELECT * FROM Users WHERE Name LIKE ?", "%" + search_results + "%")
 
 
 

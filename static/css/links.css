@@ -15,11 +15,10 @@ body{
     min-height: 1000px;
     margin-right: auto;
     margin-left: auto;
-    background-color: #bccebf;
     border: 2px solid #0ea327;
 }
 nav{
-    background: #0ea327;
+    background: rgb(4, 244, 44);
 }
 
 .left a .logo{

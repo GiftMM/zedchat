@@ -5,3 +5,4 @@ flask-login
 flask-wtf
 azure-storage-blob
 sendgrid
+flask-socketio

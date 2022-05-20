@@ -8,6 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf import FlaskForm 
 from wtforms import StringField, PasswordField, SubmitField, IntegerField,TextAreaField 
 from urllib.parse import urlparse, urljoin
+from flask_socketio import SocketIO
 import database
 
 app = Flask(__name__)
@@ -17,6 +18,7 @@ login_manager.init_app(app)
 db = database.Database()
 
 app.secret_key="12345"
+socketio = SocketIO(app)
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -162,12 +164,12 @@ def profile(user):
 
 
 @app.route('/search', methods=['GET', 'POST'])
-def search():
-    if request.method=='POST':
-        search = request.form.get('search')
-        results = db.search_results('search')
-        return render_template('search.html', results=results, search=search)
-    return render_template('search.html')
+@login_required
+def search_users():
+    search_input = request.form['search_input']
+    search = db.search_results(search_input)
+    user = db.get_all_users_alphabetically()
+    return render_template('friends.html', title = "Friends",user = user, all_users = search)
 
 
 @app.route("/logout")
@@ -178,3 +180,4 @@ def logout():
 
 if __name__ == "__main__":
    app.run(debug=True)
+   socketio.run(app)
