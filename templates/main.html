@@ -48,8 +48,8 @@
                       <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">Edit</a>
-                      <a class="dropdown-item btn-danger" href="#">Delete</a>
+                      <a class="dropdown-item" href="{{ url_for('edit_post', Id=post['Id']) }}">Edit</a>
+                      <!--<a class="dropdown-item btn-danger" href="#">Delete</a>-->
                     </div>
                   </div>
             </div>

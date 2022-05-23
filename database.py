@@ -114,3 +114,6 @@ class Database:
 
     def get_all_users_alphabetically(self):
         return self.execute_return_query("SELECT * FROM Users ORDER BY Name DESC;")
+
+    def edit_post(self, Text, Id, post_content):
+        return self.execute_return_query("UPDATE Posts SET Text = ? WHERE Id = ?", Text, Id, post_content)

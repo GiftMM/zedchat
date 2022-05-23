@@ -1,5 +1,5 @@
 import flask
-from flask import Flask, render_template, request, redirect, url_for,flash, session
+from flask import Flask, render_template, request, redirect, url_for,flash, session, abort
 from builtins import classmethod, len, print
 from data import test_posts, post1, Message1, Message2, test_messages
 import sqlite3
@@ -18,7 +18,20 @@ login_manager.init_app(app)
 db = database.Database()
 
 app.secret_key="12345"
-socketio = SocketIO(app)
+
+def get_db_connection():
+    conn = sqlite3.connect('zedchat.db')
+    conn.row_factory = sqlite3.Row
+    return conn
+
+def get_post(post_id):
+    conn = get_db_connection()
+    post = conn.execute('SELECT * FROM Posts WHERE Id = ?',
+                        (post_id,)).fetchone()
+    conn.close()
+    if post is None:
+        abort(404)
+    return post
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -106,7 +119,7 @@ def register():
             flash("Error in Insert Operation","danger")
         finally:
             return redirect(url_for("homepage"))
-            con.close()
+            
 
     return render_template('register.html')  
 
@@ -145,11 +158,48 @@ def friendspage():
 #    post = db.get_all_comments
 #    return render_template('comments.html', title="Comments", post = post)
 
-@app.route("/create", methods=['POST'])  
+@app.route("/create", methods=['POST'])
+@login_required  
 def create():
     post_content = request.form['post-content']
     db.insert_post(current_user.id, post_content) 
     return redirect(url_for('homepage'))
+
+@app.route('/<int:Id>/edit/', methods=['GET', 'POST'])
+@login_required
+def edit_post(Id):
+    post = get_post(Id)
+    if request.method == 'POST':
+        Text = request.form['Text']
+
+        if not Text:
+            flash('Content is required!')
+
+        else:
+            conn = get_db_connection()
+            conn.execute('UPDATE Posts SET Text = ?'
+                         ' WHERE Id = ?',
+                         (Text, Id))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('homepage'))
+
+    return render_template('edit_post.html', post=post)
+
+
+@app.route('/<int:id>/delete/', methods=('POST',))
+@login_required
+def delete(id):
+    post = get_post(id)
+    conn = get_db_connection()
+    conn.execute('DELETE FROM Posts WHERE Id = ?', (id,))
+    conn.commit()
+    conn.close()
+    flash('"{}" was successfully deleted!'.format(post['title']))
+    return redirect(url_for('index'))
+        
+
+
 
 
 @app.route("/users/<string:user>", methods=['GET', 'POST'])

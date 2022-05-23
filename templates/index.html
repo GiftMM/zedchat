@@ -18,13 +18,13 @@
           
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
-                <li class="nav-item p-2">
+                <!--<li class="nav-item p-2">
                   <a class="nav-link" href="{{url_for('chatpage')}}"><i class="fas fa-comment"></i></a>
                 </li>
                 <li class="nav-item p-2">
                   <a class="nav-link" href="{{url_for('chatpage')}}"><i class="fas fa-bell"></i></a>
-                </li>
-                <li class="nav-item dropdown p-2">
+                </li>-->
+                <!--<li class="nav-item dropdown p-2">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-users"></i>
                   </a>
@@ -33,7 +33,7 @@
                     <a class="dropdown-item" href="{{url_for('friendspage')}}">Add New Friends</a>
                     <div class="dropdown-divider"></div>
                   </div>
-                </li>
+                </li>-->
               </ul>
               <form class="form-inline my-2 my-lg-0" action="/search" method="POST">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search_input">
@@ -44,11 +44,11 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img src="{{url_for('static', filename='GiftM.jpg')}}" alt="Generic placeholder image">
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <!--<div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#">Your Profile</a>
                             <a class="dropdown-item" href="{{url_for('friendspage')}}">Add New Friends</a>
                             <div class="dropdown-divider"></div>
-                          </div>
+                          </div>-->
                 </div>
             </div>
               <a href="{{url_for('logout')}}">
