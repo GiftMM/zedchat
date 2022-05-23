@@ -8,7 +8,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf import FlaskForm 
 from wtforms import StringField, PasswordField, SubmitField, IntegerField,TextAreaField 
 from urllib.parse import urlparse, urljoin
-from flask_socketio import SocketIO
 import database
 
 app = Flask(__name__)
@@ -230,4 +229,3 @@ def logout():
 
 if __name__ == "__main__":
    app.run(debug=True)
-   socketio.run(app)
