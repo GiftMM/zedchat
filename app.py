@@ -8,6 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf import FlaskForm 
 from wtforms import StringField, PasswordField, SubmitField, IntegerField,TextAreaField 
 from urllib.parse import urlparse, urljoin
+from flask_socketio import SocketIO
 import database
 
 app = Flask(__name__)
@@ -78,7 +79,7 @@ def is_safe_url(target):
 @app.route("/")
 def index():
      
-    return render_template('login.html')
+    return render_template('index.html')
 
 
 
@@ -94,10 +95,10 @@ def login():
 
             login_user(user)
 
-            return redirect("homepage")
+            return redirect("feed")
         else:
             flash("Username and Password Mismatch","danger")
-    return redirect(url_for("index"))
+    return render_template("login.html")
 
 
 @app.route('/register',methods=['GET','POST'])
@@ -117,20 +118,20 @@ def register():
         except:
             flash("Error in Insert Operation","danger")
         finally:
-            return redirect(url_for("homepage"))
+            return redirect(url_for("feed"))
             
 
     return render_template('register.html')  
 
 
-@app.route("/homepage")
+@app.route("/feed")
 @login_required
-def homepage():
+def feed():
     posts = db.get_all_posts()
     user = db.get_user_by_Id(current_user.id)[0]['Name']
     if (posts == None):
         posts = []
-    return render_template('main.html', posts=posts, Id=current_user, user=user, title = "My feed")
+    return render_template('feed.html', posts=posts, Id=current_user, user=user, title = "My feed")
 
 
 @app.route("/createmessage", methods=['POST'])  
@@ -138,12 +139,6 @@ def createmessage():
     message_content = request.form['message-content']
     db.insert_message(current_user.id, message_content)
     return redirect(url_for('chatpage'))
-
-@app.route("/chat")
-@login_required
-def chatpage():
-    #messages = db.get_all_messages(current_user.id)
-    return render_template('chat.html', messages = test_messages, title = "Messages")
 
 
 @app.route("/Friends")
@@ -162,7 +157,7 @@ def friendspage():
 def create():
     post_content = request.form['post-content']
     db.insert_post(current_user.id, post_content) 
-    return redirect(url_for('homepage'))
+    return redirect(url_for('feed'))
 
 @app.route('/<int:Id>/edit/', methods=['GET', 'POST'])
 @login_required
@@ -181,12 +176,12 @@ def edit_post(Id):
                          (Text, Id))
             conn.commit()
             conn.close()
-            return redirect(url_for('homepage'))
+            return redirect(url_for('feed'))
 
     return render_template('edit_post.html', post=post)
 
 
-@app.route('/<int:id>/delete/', methods=('POST',))
+@app.route('/<int:Id>/delete/', methods=('POST',))
 @login_required
 def delete(id):
     post = get_post(id)
@@ -203,13 +198,32 @@ def delete(id):
 
 @app.route("/users/<string:user>", methods=['GET', 'POST'])
 def profile(user):
-    user_infor = db.get_user(user)
-    if (len(user_infor) > 0):
-        User = user_infor[0] 
-        posts = db.get_all_posts(current_user.id)
-        if (posts == None):
-            posts = []
-        return render_template('profile.html', title=User['Name'], User=User, posts=posts, user=current_user )
+    user_infor = db.get_user_by_Id(current_user.id)[0]
+    other_data = db.get_id_by_name(user)
+    if (len(other_data) > 0):
+        User = other_data[0] 
+#        posts = db.get_all_posts(current_user.id)
+#        if (posts == None):
+#            posts = []
+        return render_template('profile.html', title=User['Name'], User=User, user=user_infor )
+
+
+@app.route("/chatstart")
+@login_required
+def chatstart():
+    message_users = db.get_all_users_alphabetically()
+    return render_template('chat-users.html', title = "Friends", message_users= message_users)
+
+
+@app.route("/chat/<string:user>", methods=['GET', 'POST'])
+@login_required
+def chatpage(user):
+    message_infor = db.get_message_UserId1(user)
+    if (len(message_infor) > 0):
+        User = message_infor[0]
+
+        return render_template('chat.html', User=User)
+
 
 
 @app.route('/search', methods=['GET', 'POST'])

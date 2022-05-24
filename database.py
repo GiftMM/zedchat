@@ -99,11 +99,19 @@ class Database:
 
 
     def insert_message(self, id, message_content):
-        self.execute_void_query("INSERT INTO Messages (Text, UserId1) VALUES (?, ?)", message_content, id)
+        self.execute_void_query("INSERT INTO Messages (Text, UserId2) VALUES (?, ?)", message_content, id)
 
 
     def get_all_messages(self,user ):
-        return self.execute_return_query("SELECT * FROM Messages WHERE MessageId = ?;", user)
+        return self.execute_return_query("SELECT * FROM Messages Inner JOIN Users ON  Messages.UserId1 = Users.Id  AND Messages.UserId2 = Users.Id;", user)
+
+
+    def get_message_Id2(self,user):
+        return self.execute_return_query("SELECT * FROM Messages WHERE UserId2 = ?;", user)
+
+
+    def get_message_UserId1(self,user):
+        return self.execute_return_query("SELECT * FROM Messages Inner JOIN Users ON  Messages.UserId1 = Users.Id WHERE UserId1 = ?;", user)
 
 
     def search_results(self, search_results):

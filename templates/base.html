@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ZedChat</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <!-- Bulma Version 0.9.0-->
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/instaAlbum.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+
+</head>
+
+<body>
+  <div class="navbar is-inline-flex is-success">
+      <div class="navbar-brand">
+          <a class="navbar-item is-size-3 is-italic has-text-weight-bold" href="{{url_for('feed')}}">
+              ZedChat
+          </a>
+      </div>
+      <div class="navbar-item is-flex-touch">
+        <a class="navbar-item" href="{{url_for('chatstart')}}">
+            <i class="material-icons">question_answer</i>
+        </a>
+        <a class="navbar-item" href="{{url_for('friendspage')}}">
+            <i class="material-icons">people</i>
+        </a>
+        <a class="navbar-item" href="">
+            <i class="material-icons">person_outline</i>
+        </a>
+    </div>
+      <div class="navbar-menu">
+          <div class="navbar-item">
+              <div class="control has-icons-left">
+                <form action="/search" method="POST">
+                    <input class="input is-small has-text-centered" type="search" placeholder="search" name="search_input" required>
+                    <span class="icon is-right is-small">
+                        <i class="material-icons"></i>
+                    </span>
+                </form>
+              </div>
+          </div>
+      </div>
+      <div class="navbar-item is-flex-touch">
+          <a class="navbar-item">
+              <i class="material-icons">person_outline</i>
+          </a>
+          <a class="navbar-item">
+              <i class="fa fa-sign-out"></i>
+          </a>
+          <a class="navbar-item" href="{{url_for('logout')}}">
+              <i class="material-icons">logout</i>
+          </a>
+      </div>
+  </div>
+  
+  {% block content %}
+
+  {% endblock %}
+
+
+</body>
+
+
+</html>

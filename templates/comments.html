@@ -1,80 +1,78 @@
-{% extends 'index.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
     
-<div class="post-container">
-    <div class="post-row">
-        <div class="user-profile">
-            <img src="{{url_for('static', filename=post['Picture'])}}" alt="Image">
-        
-            <div>
-                <p>{{post['Name']}}</p>
-            <span>{{post['DateTime']}}</span>
-            </div>
-        </div>
-        <a href="#"><i class="fas fa-ellipsis-v"></i></a>
-    </div>
-    
-    <p class="post-text"> {{post['Text']}}</p>
-    <!--<img src="GiftM.jpg" class="post-img">-->
-
-    <div class="post-row">
-        <div class="activity-icons">
-            <div>
-                <i class="fas fa-heart"></i> 
-                <span>{{post['Hearts'] | count }}</span>
-            </div>
-            <a class="level-item" aria-label="like"href="{{url_for('comments', post_id=post['PostId'])}}">
-                <div>
-                <i class="fas fa-comment-alt"></i>
-                <span>{{post['Comments'] | count }}</span>
-            </div>
-        </a>
-            
-            <div>
-                <i class="fas fa-share-alt"></i> 5
-            </div>
-        </div>
-    </div>
 
 
 
-</div>
+
+
 
 {% for Comment in post ['Comments'] %}
-<div class="comments">
-    <div class="comment-container">
-        <div class="post-row">
-            <div class="user-profile">
-                <img src="{{url_for('static', filename=post['Picture'])}}" alt="Image">
-            
-                <div>
-                    <p>{{post['Name']}}</p>
-                <span>{{post['DateTime']}}</span>
+
+<div class="card-content">
+    <div class="card">
+        <div class="header">
+            <div class="media">
+                <div class="media-left">
+                    <figure class="image is-48x48">
+                        <img src="https://source.unsplash.com/random/96x96" alt="Placeholder image">
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <p class="title is-4">John Smith</p>
+                    <p class="subtitle is-6">11:09 PM - 1 Jan 2018</p>
                 </div>
             </div>
-            <a href="#"><i class="fas fa-ellipsis-v"></i></a>
         </div>
-        
-        <p class="post-text"> {{post['Text']}}</p>
-        <!--<img src="GiftM.jpg" class="post-img">-->
+        <div class="card-content">
+          <div class="content">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.</p>
+          </div>
+        </div>
+        <div class="card-image">
+            <figure class="image is-4by3">
+                <img src="https://source.unsplash.com/random/1280x960" alt="Placeholder image">
+            </figure>
+        </div>
+        <div class="card-content">
+            <div class="level is-mobile">
+                <div class="level-left">
+                    <div class="level-item has-text-centered">
+                        <a href="">
+                            <i class="material-icons">favorite_border</i>
+                        </a>
+                    </div>
+                    <div class="level-item has-text-centered">
+                        <div>
+                            <a href="">
+                                <i class="material-icons">chat_bubble_outline</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="post-row">
-            <div class="activity-icons">
-                    <div>
-                        <i class="fas fa-heart"></i> 
-                        <span>{{post['Hearts'] | count }}</span>
+            
+        </div>
+        <div class="card-footer">
+            <div class="columns is-mobile">
+                <div class="column is-11">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input is-medium" type="text" placeholder="Add a comment . . .">
+                        </div>
                     </div>
-                <!--<a class="level-item" aria-label="like"href="{{url_for('comments', post_id=post['PostId'])}}">
-                    <div>
-                        <i class="fas fa-comment-alt"></i>
-                        <span>{{post['Comments'] | count }}</span>
-                    </div>
-                </a>-->
+                </div>
+                <div class="column has-text-centered">
+                    <button class="button">
+                        <i class="material-icons">more_horiz</i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+  </div>
 {% endfor %}
 
 {% endblock %}
