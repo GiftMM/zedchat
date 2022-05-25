@@ -10,6 +10,7 @@ from wtforms import StringField, PasswordField, SubmitField, IntegerField,TextAr
 from urllib.parse import urlparse, urljoin
 from flask_socketio import SocketIO
 import database
+import git
 
 app = Flask(__name__)
 
@@ -74,6 +75,15 @@ def is_safe_url(target):
     test_url = urlparse(urljoin(request.host_url, target))
     return test_url.scheme in ('http','https') and \
            ref_url.netloc == test_url.netloc
+
+@app.route('/git_update', methods=['POST'])
+def git_update():
+    repo = git.Repo('./zedchat')
+    origin = repo.remotes.origin
+    repo.create_head('main',
+                     origin.refs.main).set_tracking_branch(origin.refs.main).checkout()
+    origin.pull()
+    return '', 200
 
 
 @app.route("/")
@@ -146,6 +156,21 @@ def createmessage():
 def friendspage():
     all_users = db.get_all_users_alphabetically()
     return render_template('friends.html', title = "Friends", all_users= all_users)
+
+
+@app.route('/friend_request/<int:receiver_id>')
+@login_required
+def friend_request(receiver_id):
+    db.insert_request(receiver_id, current_user.id)
+    user = db.get_user_by_Id(receiver_id)[0]['Name']
+    return redirect(url_for('friendspage', user = user))
+
+@app.route("/requests")
+@login_required
+def requests():
+    requests = db.get_friend_requests('Id')
+    user = db.get_all_users_alphabetically()
+    return render_template('requests.html', title = "Friends", user = user, requests = requests)
 
 #@app.route("/comments/<int:post_id>")
 #def comments():

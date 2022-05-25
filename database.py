@@ -14,11 +14,18 @@ class Database:
 
         messages_table_query = 'CREATE TABLE IF NOT EXISTS "Messages" ("MessageId" INTEGER PRIMARY KEY AUTOINCREMENT, "UserId1"	INTEGER, "UserId2"	INTEGER, "Text"	TEXT, "DateTime" TIMESTAMP DEFAULT CURRENT_TIMESTAMP);'
 
+        friends_table_query = 'CREATE TABLE IF NOT EXISTS "friends" ( "Id"	INTEGER NOT NULL UNIQUE PRIMARY KEY AUTOINCREMENT, "UserId"	INTEGER NOT NULL , "friendId"	INTEGER NOT NULL);'
+
+        friend_request_table_query = 'CREATE TABLE IF NOT EXISTS "Requests" ("Id"	INTEGER NOT NULL UNIQUE PRIMARY KEY AUTOINCREMENT, 	"RequesterId"	INTEGER NOT NULL, 	"ReceiverId"	INTEGER NOT NULL );'
+
+
         self.execute_void_query(Users_table_query)
         self.execute_void_query(Posts_table_query)
         self.execute_void_query(Likes_table_query)
         self.execute_void_query(Counts_table_query)
         self.execute_void_query(messages_table_query)
+        self.execute_void_query(friends_table_query)
+        self.execute_void_query(friend_request_table_query)
 
 
     def execute_void_query(self, query_text, *parameters):
@@ -125,3 +132,27 @@ class Database:
 
     def edit_post(self, Text, Id, post_content):
         return self.execute_return_query("UPDATE Posts SET Text = ? WHERE Id = ?", Text, Id, post_content)
+
+
+     #///Friends Methods///
+
+
+    def insert_request(self, requesterid, receiverid):
+        self.execute_void_query("INSERT INTO Requests (RequesterId, ReceiverId) VALUES (?,?)", requesterid, receiverid)
+        pass
+
+    def cancel_friend_request(self,requesterid, receiverid):
+        return self.execute_return_query("DELETE FROM Requests WHERE RequesterId = ? And ReceiverId = ?", requesterid, receiverid) 
+
+    def get_friend_requests(self, Id):
+        self.execute_return_query("SELECT * FROM Requests Inner JOIN Users ON Requests.ReceiverId = Users.Id AND Requests.RequesterId = Users.Id WHERE ReceiverId = ?", Id)
+
+    def insert_friend(self, friendid, userid):
+        self.execute_return_query("INSERT INTO Friends (FriendId, UserId) VALUES (?, ?)", friendid, userid)
+
+
+    def get_friends(self):
+        self.execute_return_query("SELECT * FROM Friends Inner JOIN Users ON  Friends.FriendsId = Users.Id AND Friends.UserId = Users.Id WHERE FriendId = ?")
+
+    def unfriend(self, friendid, userid):
+        return self.execute_return_query("DELETE FROM Friends WHERE FriendId = ? And UserId = ?", friendid, userid) 

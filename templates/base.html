@@ -25,12 +25,37 @@
         <a class="navbar-item" href="{{url_for('chatstart')}}">
             <i class="material-icons">question_answer</i>
         </a>
-        <a class="navbar-item" href="{{url_for('friendspage')}}">
-            <i class="material-icons">people</i>
-        </a>
+
         <a class="navbar-item" href="">
             <i class="material-icons">person_outline</i>
         </a>
+        <div class="dropdown is-hoverable  is-success">
+            <div class="dropdown-trigger is-success" style="background-color: #48c774;">
+              <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4" style="background-color: #48c774;  border: #48c774; outline: none;">
+                <span>
+                    <a class="navbar-item">
+                        <i class="material-icons">people</i>
+                    </a>
+                </span>
+                <span class="icon is-small">
+                  <i class="fas fa-angle-down" aria-hidden="false"></i>
+                </span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu4" role="menu" style="background-color: #48c774;">
+              <div class="dropdown-content" style="background-color: #48c774;">
+                <a href="{{url_for('friendspage')}}" class="dropdown-item is-success">
+                    Add New Friends
+                </a>
+                <a href="{{url_for('friendspage')}}" class="dropdown-item is-success">
+                    Your Friends
+                </a>
+                <a href="{{url_for('requests')}}" class="dropdown-item is-success">
+                    Requests
+                </a>
+              </div>
+            </div>
+          </div>
     </div>
       <div class="navbar-menu">
           <div class="navbar-item">
