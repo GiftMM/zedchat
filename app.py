@@ -8,9 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf import FlaskForm 
 from wtforms import StringField, PasswordField, SubmitField, IntegerField,TextAreaField 
 from urllib.parse import urlparse, urljoin
-from flask_socketio import SocketIO
 import database
-import git
 
 app = Flask(__name__)
 
@@ -75,15 +73,6 @@ def is_safe_url(target):
     test_url = urlparse(urljoin(request.host_url, target))
     return test_url.scheme in ('http','https') and \
            ref_url.netloc == test_url.netloc
-
-@app.route('/git_update', methods=['POST'])
-def git_update():
-    repo = git.Repo('./zedchat')
-    origin = repo.remotes.origin
-    repo.create_head('main',
-                     origin.refs.main).set_tracking_branch(origin.refs.main).checkout()
-    origin.pull()
-    return '', 200
 
 
 @app.route("/")
