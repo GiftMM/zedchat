@@ -144,8 +144,8 @@ class Database:
     def cancel_friend_request(self,requesterid, receiverid):
         return self.execute_return_query("DELETE FROM Requests WHERE RequesterId = ? And ReceiverId = ?", requesterid, receiverid) 
 
-    def get_friend_requests(self, Id):
-        self.execute_return_query("SELECT * FROM Requests Inner JOIN Users ON Requests.ReceiverId = Users.Id AND Requests.RequesterId = Users.Id WHERE ReceiverId = ?", Id)
+    def get_friend_requests(self):
+        self.execute_return_query("SELECT * FROM Requests Inner JOIN Users ON Requests.ReceiverId = Users.Id AND Requests.RequesterId = Users.Id WHERE ReceiverId = ?")
 
     def insert_friend(self, friendid, userid):
         self.execute_return_query("INSERT INTO Friends (FriendId, UserId) VALUES (?, ?)", friendid, userid)
