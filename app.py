@@ -156,7 +156,7 @@ def friend_request(receiver_id):
 @app.route("/requests")
 @login_required
 def requests():
-    requests = db.get_friend_requests('Id')
+    requests = db.get_friend_requests()
     user = db.get_all_users_alphabetically()
     return render_template('requests.html', title = "Friends", user = user, requests = requests)
 
